@@ -61,7 +61,7 @@ async fn process(stream: TcpStream, db: &Database) {
             }
             Command::Get(cmd) => db
                 .get(cmd.key())
-                .map(|val| Frame::Bulk(val))
+                .map(Frame::Bulk)
                 .or_else(|| Some(Frame::Simple("nil".to_owned())))
                 .unwrap(),
             _ => Frame::Error("unimplemented".to_string()),
